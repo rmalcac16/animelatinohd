@@ -23,7 +23,7 @@ use App\Http\Controllers\Admin\PlayerController;
 
 Route::name('web.')->group(function (){
     Route::get('/', [AppController::class, 'getHome'])->name('home');
-    Route::get('ver/{anime}/{episode}', [AppController::class, 'getEpisode'])->name('episode');
+    Route::get('ver/{slug}/{number}', [AppController::class, 'getEpisode'])->name('episode');
     Route::get('anime/{anime}', [AppController::class, 'getAnime'])->name('anime');
     Route::prefix('animes')->name('animes.')->group(function (){
         Route::get('/', [AppController::class, 'getAnimesList'])->name('index');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use Exception;
 use QueryException;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -152,44 +153,18 @@ class AppController extends Controller
     }
 
 
-	public function getEpisode(Request $request)
+	public function getEpisode(Request $request, string $slug, int $number): \Illuminate\View\View
 	{
-		try {
-			$anime = $this->anime->web_obtenerAnime($request->anime);
-			if(!$anime)
-				throw new Exception("Anime no encontrado", 1);
-			$episode = $this->episode->web_obtenerEpisodio($anime->id, $request->episode);
-			if(!$episode)
-				throw new Exception("Episodio no encontrado", 1);
-			$episodeN = $this->episode->web_obtenerEpisodio($anime->id, $request->episode + 1);
-			$episodeA = $this->episode->web_obtenerEpisodio($anime->id, $request->episode - 1);
-			$players = $this->player->web_obtenerReproductores($episode->id);
 
-			if(!$this->isMobileDevice()){
-				$players = $players->filter(function ($player) {
-					return $player->server->title !== 'Gamma';
-				})->values();
-			};
+		$episode = $this->episode->getEpisode($slug, $number);
+		
+		$data = [
+			'episode' => $episode
+		];
+		
+		return view('web.episode')->with($data);
 
-			$players = $players->map(function ($player) {
-				$playerWithoutCode = clone $player;
-				unset($playerWithoutCode->code);
-				return $playerWithoutCode;
-			});
-
-			$data = [
-				'anime' => $anime,
-				'episode' => $episode,
-				'episodeN' => $episodeN,
-				'episodeA' => $episodeA,
-				'players' => $players
-			];
-			
-			return view('web.episode')->with($data);
-
-		} catch (Exception $e) {
-			abort(404,$e->getMessage());
-		}
+		
     }
 
 

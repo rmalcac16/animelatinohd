@@ -341,14 +341,14 @@ img {
     fill: var(--white-color) !important;
 }
 
-.episodeCardHome .label {
+.episodeCardHome .holder .overlay .label {
     position: absolute;
     bottom: 0;
     left: 0;
     padding: 0.3rem 0.4rem;
     font-size: 0.7rem;
     border-radius: 0 0.4rem 0 0rem;
-    background: rgba(206, 17, 37, 1);
+    background: var(--primary-color);
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -361,19 +361,6 @@ img {
     font-weight: 300;
     font-size: 1rem;
     opacity: 0.7;
-}
-
-.etiqueta {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: var(--primary-color);
-    padding: 0.2rem 0.8rem;
-    font-size: 0.6rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 0 0 0.3rem 0;
-    opacity: 0.8;
 }
 
 /* Contenedor */
@@ -403,58 +390,6 @@ img {
     color: var(--gray-color);
     margin-top: 0.5rem;
     display: block;
-}
-
-/* Filtros */
-
-.filters {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-    padding: 0 0 2rem 0;
-}
-
-.filters .filter {
-    text-transform: uppercase;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.filters .filter label {
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    color: #b9b9b9;
-    margin-right: 10px;
-}
-
-.filters .filter select,
-.filters .btnClear {
-    flex: 1;
-    margin-right: 5px;
-    margin-left: 5px;
-    background: var(--tertiary-color);
-    color: var(--gray-color);
-    border: 0;
-    padding: 0.7rem 0.5rem;
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.filters .btnClear {
-    background: linear-gradient(135deg, var(--primary-color), transparent);
-}
-
-.filters .filter select:focus-visible {
-    outline: none;
-}
-
-.filters .filter select option {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding: 0.5rem;
 }
 
 /* Items */
@@ -716,26 +651,20 @@ img {
     .list-items {
         grid-template-columns: repeat(2, 1fr);
     }
-    .filters {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .filters .btnClear {
-        grid-column: span 2;
-    }
     .calendar .list-animes {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 350px) {
     .list-items {
         grid-template-columns: repeat(1, 1fr);
     }
-    .filters {
-        grid-template-columns: repeat(1, 1fr);
-    }
-    .filters .filter label {
-        min-width: 40px;
+}
+
+@media (min-width: 350px) and (max-width: 375px) {
+    .list-items {
+        grid-template-columns: repeat(2, 1fr);
     }
     .calendar .list-animes {
         grid-template-columns: repeat(1, 1fr);
@@ -1623,4 +1552,208 @@ img {
     font-size: 0.65rem;
     color: #b9b9b9;
     font-weight: 400;
+}
+
+.list-animes {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    grid-auto-rows: minmax(auto, auto);
+}
+
+.list-animes .animeCard {
+    overflow: hidden;
+}
+
+.list-animes .animeCard .cover {
+    position: relative;
+    margin-bottom: 0.5em;
+}
+
+.list-animes .animeCard .cover .score {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0.75em;
+    left: 0.3875em;
+    font-weight: 700;
+    font-size: 0.7rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    min-width: 5em;
+    text-align: center;
+    border-radius: 5em;
+    line-height: 1.4285em;
+    padding: 0.2rem;
+}
+
+.list-animes .animeCard .cover .score span {
+    display: flex;
+    margin-right: 0.2rem;
+}
+
+.list-animes .animeCard .cover .score span svg {
+    fill: #eabe3f;
+    width: 0.8rem;
+}
+
+.list-animes .animeCard .cover .score b {
+    margin-left: 3px;
+    color: #eabe3f;
+}
+
+.list-animes .animeCard .cover .image {
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+    width: 100%;
+    aspect-ratio: 9/14;
+}
+
+.list-animes .animeCard .cover .image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.list-animes .animeCard .info h3 {
+    display: block;
+    float: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.list-animes .animeCard .info h3 span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    position: relative;
+    float: left;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.list-animes .animeCard .info .year {
+    font-size: 0.6rem;
+    color: #b9b9b9;
+}
+
+/* Estilos para el Filtro */
+
+.filters {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    padding: 0 0 2rem 0;
+    overflow: hidden;
+}
+
+.filters .filter {
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters .filter label {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: #b9b9b9;
+    margin-right: 10px;
+}
+
+.filters .filter select,
+.filters .btnClear {
+    flex: 1;
+    margin-right: 5px;
+    margin-left: 5px;
+    background: var(--tertiary-color);
+    color: var(--gray-color);
+    border: 0;
+    padding: 0.7rem 0.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.filters .btnClear {
+    background: var(--primary-color);
+}
+
+.filters .filter select:focus-visible {
+    outline: none;
+}
+
+.filters .filter select option {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0.5rem;
+}
+
+@media screen and (max-width: 320px) {
+    .list-animes {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .contenedor h1.title small {
+        font-size: 0.7rem;
+    }
+    .filters {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (min-width: 320px) and (max-width: 425px) {
+    .list-animes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 425px) and (max-width: 500px) {
+    .list-animes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 500px) and (max-width: 660px) {
+    .list-animes {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .filters {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .filters button {
+        grid-column: span 2;
+    }
+    .filters .filter {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .filters .filter select {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media (min-width: 660px) and (max-width: 768px) {
+    .list-animes {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .list-animes {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .list-animes {
+        grid-template-columns: repeat(6, 1fr);
+    }
 }

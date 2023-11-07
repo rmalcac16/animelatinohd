@@ -53,18 +53,20 @@ class Episode extends Model
 			->get();
     }
 
-    public function getEpisode($request)
+    public function getEpisode($slug_anime, $number)
     {
         $episode = $this
-            ->select('episodes.*', 'animes.name', 'animes.slug', 'animes.banner', 'animes.poster')
+            ->select('episodes.*', 'anime_id', 'animes.name', 'animes.slug', 'animes.banner', 'animes.poster')
             ->join('animes','animes.id','episodes.anime_id')
-            ->where('animes.slug', $request->slug)
-            ->where('episodes.number', $request->number)
+            ->where('animes.slug', $slug_anime)
+            ->where('episodes.number', $number)
             ->with(['players' => function ($query) {
-                $query->with('server');
+                $query->select('id','server_id','episode_id','languaje')->with(['server' => function ($query) {
+                    $query->select('id','title');
+                }]);
             }])
             ->first();
-
+            
         $previousEpisode = $this
             ->select('id','number')
             ->where('anime_id', $episode->anime_id)
@@ -81,6 +83,8 @@ class Episode extends Model
 
         $episode->previousEpisode = $previousEpisode;
         $episode->nextEpisode = $nextEpisode;
+
+        $episode->dataPlayers = collect($episode->players)->groupBy('languaje');
 
         return $episode;
     }

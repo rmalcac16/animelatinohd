@@ -46,8 +46,7 @@ class Anime extends Model
 
     public function web_animesListaFiltro($request)
     {
-        $data = $this->select('name', 'slug', 'poster', 'aired', 'vote_average')
-		->orderBy('aired','desc');
+        $data = $this->select('name', 'slug', 'poster', 'aired', 'vote_average')->orderBy('aired','desc');
 		if($request->type){
 			$data = $data->where('type',$request->type);
 		}
@@ -71,7 +70,7 @@ class Anime extends Model
 	public function web_animesLatinoFiltro($request)
     {
 		$data = $this
-			->select('name', 'slug', 'poster', 'vote_average','status',
+			->select('name', 'slug', 'poster', 'vote_average', 'aired', 'status',
 		     \DB::raw('MAX(number) as number'),\DB::raw('MAX(players.id) as idplayer'))
 			->LeftJoin('episodes', 'episodes.anime_id', '=', 'animes.id')
 			->LeftJoin('players','episode_id', '=', 'episodes.id')
