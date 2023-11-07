@@ -64,7 +64,7 @@
                 </div>
                 <div class="actions">
                     @if ($episode->previousEpisode)
-                        <a href="{{ route('web.episode', ['anime' => $episode->anime->slug, 'episode' => $episode->previousEpisode->number]) }}"
+                        <a href="{{ route('web.episode', [$episode->anime->slug, $episode->previousEpisode->number]) }}"
                             class="button">
                             <svg viewBox="0 0 24 24">
                                 <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
@@ -82,7 +82,7 @@
                     </a>
 
                     @if ($episode->nextEpisode)
-                        <a href="{{ route('web.episode', ['anime' => $episode->anime->slug, 'episode' => $episode->nextEpisode->number]) }}"
+                        <a href="{{ route('web.episode', [$episode->anime->slug, $episode->nextEpisode->number]) }}"
                             class="button">
                             <span>Ep. Siguiente</span>
                             <svg viewBox="0 0 24 24">
