@@ -39,10 +39,8 @@
                     <div class="genres">
                         @foreach (explode(',', $anime->genres) as $genre)
                             <a class="genre" title="{{ $genre }}"
-                                href="/animes?genre={{ $genre }}">{{ $genre }}</a>
+                                href="/animes?genre={{ $genre }}">{{ str_replace('-', ' ', $genre) }}</a>
                         @endforeach
-                        <a class="genre" title="accion" href="/animes?genre=accion">accion</a>
-                        <a class="genre" title="fantasia" href="/animes?genre=fantasia">fantasia</a>
                     </div>
                 </div>
             </div>
@@ -108,8 +106,9 @@
                     @forelse ($episodes as $episode)
                         <a class="episodeContainer" href="{{ route('web.episode', [$anime->slug, $episode->number]) }}">
                             <div class="episodeImageContainer">
-                                <img alt="{{ $anime->title . ' ' . $episode->number }}"
-                                    src="{{ 'https://image.tmdb.org/t/p/w300' . $anime->banner }}" />
+                                <img alt="{{ $anime->name . ' Capítulo ' . $episode->number }}"
+                                    src="{{ 'https://image.tmdb.org/t/p/w300' . $anime->banner }}" layout="responsive"
+                                    loading="lazy" />
                                 <div class="overlay"></div>
                             </div>
                             <div class="episodeInfoContainer">

@@ -17,7 +17,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap"
         rel="stylesheet">
-    <script src="{{ asset('web/tailwindcss/main') }}"></script>
     <link href="{{ asset('web/css/styles.css') }}" rel="stylesheet" type="text/css" />
     @yield('styles')
 </head>

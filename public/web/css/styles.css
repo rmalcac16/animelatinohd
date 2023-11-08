@@ -17,6 +17,10 @@ body {
     padding: 0;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 a {
     color: inherit;
     text-decoration: none;
@@ -1263,8 +1267,14 @@ img {
 .animePage .content .listEpisodes .episodeContainer .episodeImageContainer {
     position: relative;
     overflow: hidden;
+    aspect-ratio: 16/9;
 }
 
+.animePage .content .listEpisodes .episodeContainer .episodeImageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .animePage
     .content
     .listEpisodes
@@ -1729,6 +1739,15 @@ img {
 @media (min-width: 320px) and (max-width: 425px) {
     .list-animes {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .animePage .banner .contentBanner .column h1 {
+        font-size: 1.2rem;
+    }
+    .animePage .banner {
+        height: 200px;
     }
 }
 
