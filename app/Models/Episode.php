@@ -84,7 +84,15 @@ class Episode extends Model
         $episode->previousEpisode = $previousEpisode;
         $episode->nextEpisode = $nextEpisode;
 
-        $episode->dataPlayers = collect($episode->players)->groupBy('languaje');
+        if (!isMobileDevice()) {
+            $filteredServers = collect($episode->players)->filter(function ($server) {
+                return $server['server']['title'] != 'Gamma';
+            })->values()->all();
+            $episode->dataPlayers = collect($filteredServers)->groupBy('languaje');
+        }else {
+            $episode->dataPlayers = collect($episode->players)->groupBy('languaje');
+        }
+
 
         return $episode;
     }

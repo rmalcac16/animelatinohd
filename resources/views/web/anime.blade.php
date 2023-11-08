@@ -2,24 +2,10 @@
 
 @section('title', 'Ver ' . $anime->name . ' Online Sub Español Latino')
 
-@php
-    use Illuminate\Support\Str;
-    function formatViews($views)
-    {
-        $abbreviations = [12 => 'T', 9 => 'B', 6 => 'M', 3 => 'K'];
-        foreach ($abbreviations as $exponent => $abbreviation) {
-            if ($views >= pow(10, $exponent)) {
-                return round($views / pow(10, $exponent), 1) . $abbreviation;
-            }
-        }
-        return $views;
-    }
-@endphp
-
 @section('meta')
-    <meta name="description" content="{{ Str::limit($anime->overview, 165, '...') }}" />
+    <meta name="description" content="{{ limitString($anime->overview, 165) }}" />
     <meta name="og:title" content="{{ 'Ver ' . $anime->name . ' Online Sub Español Latino • ' . config('app.name') }}" />
-    <meta name="og:description" content="{{ Str::limit($anime->overview, 165, '...') }}" />
+    <meta name="og:description" content="{{ limitString($anime->overview, 165) }}" />
     <meta name="og:locale" content="es_LA" />
     <meta name="og:type" content="website" />
     <meta name="og:image" content="{{ 'https://image.tmdb.org/t/p/w500' . $anime->poster }}" />
@@ -92,7 +78,7 @@
                     </div>
                     <div class="item">
                         <small>Titulos Alternativos</small>
-                        <span>{{ \Illuminate\Support\Str::limit($anime->name_alternative, 20, '...') }}</span>
+                        <span>{{ limitString($anime->name_alternative, 20) }}</span>
                     </div>
                 </div>
             </div>
@@ -104,18 +90,7 @@
                 </div>
                 <div class="listEpisodes">
                     @forelse ($episodes as $episode)
-                        <a class="episodeContainer" href="{{ route('web.episode', [$anime->slug, $episode->number]) }}">
-                            <div class="episodeImageContainer">
-                                <img alt="{{ $anime->name . ' Capítulo ' . $episode->number }}"
-                                    src="{{ 'https://image.tmdb.org/t/p/w300' . $anime->banner }}" layout="responsive"
-                                    loading="lazy" />
-                                <div class="overlay"></div>
-                            </div>
-                            <div class="episodeInfoContainer">
-                                <div class="animeTitle">{{ $anime->name }}</div>
-                                <span class="episodeNumber">{{ 'Ep. ' . $episode->number }}</span>
-                            </div>
-                        </a>
+                        @include('web.components.episodeAnimeCard')
                     @empty
                         {{ 'Aun no hay episodios' }}
                     @endforelse
@@ -123,9 +98,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('aditionals')
-
-
 @endsection

@@ -16,20 +16,6 @@
     <meta itemProp="image" content="https://i.imgur.com/Iof3uSm.jpg" />
 @endsection
 
-@php
-    function formatViews($views)
-    {
-        $abbreviations = [12 => 'T', 9 => 'B', 6 => 'M', 3 => 'K'];
-        foreach ($abbreviations as $exponent => $abbreviation) {
-            if ($views >= pow(10, $exponent)) {
-                return round($views / pow(10, $exponent), 1) . $abbreviation;
-            }
-        }
-        return $views;
-    }
-@endphp
-
-
 @section('content')
     <div class="contenedor">
 

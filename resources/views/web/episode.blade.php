@@ -72,7 +72,6 @@
                             <span>Ep. Anterior</span>
                         </a>
                     @endif
-
                     <a class="button" href="{{ route('web.anime', [$episode->anime->slug]) }}">
                         <svg viewBox="0 0 24 24">
                             <path
@@ -80,7 +79,6 @@
                             </path>
                         </svg>
                     </a>
-
                     @if ($episode->nextEpisode)
                         <a href="{{ route('web.episode', [$episode->anime->slug, $episode->nextEpisode->number]) }}"
                             class="button">

@@ -155,20 +155,15 @@ class AppController extends Controller
 
 	public function getEpisode(Request $request, string $slug, int $number): \Illuminate\View\View
 	{
-
 		$episode = $this->episode->getEpisode($slug, $number);
-		
 		$data = [
 			'episode' => $episode
 		];
-		
 		return view('web.episode')->with($data);
-
-		
     }
 
 
-	public function getAnime(Request $request)
+	public function getAnime(Request $request): \Illuminate\View\View
 	{
 		try {
 			$anime = $this->anime->web_obtenerAnime($request->anime);
@@ -189,7 +184,7 @@ class AppController extends Controller
     }
 
 
-	public function showVideo(Request $request)
+	protected function showVideo(Request $request)
 	{
 		try {
 			if(!$request->get('_token'))
@@ -212,21 +207,6 @@ class AppController extends Controller
 			abort($e->getResponse()->getStatusCode(), $e->getResponse()->getContent());
 		}
     }
-
-	private function isMobileDevice()
-	{
-		$userAgent = $_SERVER['HTTP_USER_AGENT'];
-		$mobileKeywords = [
-			'mobile', 'android', 'iphone', 'ipod', 'blackberry',
-			'webos', 'opera mini', 'windows phone', 'iemobile',
-		];
-		foreach ($mobileKeywords as $keyword) {
-			if (stripos($userAgent, $keyword) !== false) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	protected function manifest(){
 		return array(
