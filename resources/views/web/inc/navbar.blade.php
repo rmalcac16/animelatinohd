@@ -1,5 +1,4 @@
 <?php
-
 $navItems = [
     [
         'route' => route('web.animes.index'),
@@ -28,21 +27,17 @@ $navItems = [
     ],
 ];
 ?>
-
 <div class="containerMenu">
     <div class="menu">
         <a class="item logo" href="/">AnimeLHD</a>
         @foreach ($navItems as $item)
-            <a alt="{{ $item['name'] }}" class="item" href="{{ $item['route'] }}">
-                {!! $item['svg'] !!}
+            <a alt="{{ $item['name'] }}" class="item" href="{{ $item['route'] }}">{!! $item['svg'] !!}
                 {{ $item['name'] }}
             </a>
         @endforeach
         @include('web.inc.search')
     </div>
 </div>
-
-
 <div class="containerNavBottom">
     <div class="menu">
         @foreach ($navItems as $item)

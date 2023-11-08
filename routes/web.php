@@ -33,6 +33,7 @@ Route::name('web.')->group(function (){
         Route::get('/calendario', [AppController::class, 'getCalendarAnimes'])->name('calendar');
     });
     Route::get('/video/{id}', [AppController::class, 'showVideo'])->name('video');
+    Route::get('/manifest.json', [AppController::class, 'manifest'])->name('manifest');
 });
 
 

@@ -6,31 +6,21 @@
     </svg>
     <div id="search" class="search" style="display: none">
         <form method="GET" action="/animes" class="inputContainer">
-            <input name="q" class="input" type="text" placeholder="Buscar..."><label
-                for="search">Buscar</label>
+            <input id="searchInput" name="q" class="input" type="text" placeholder="Buscar...">
+            <label for="searchInput">Buscar...</label>
         </form>
-        <div id="close" class="close"><svg viewBox="0 0 24 24">
+        <div id="close" class="close">
+            <svg viewBox="0 0 24 24">
                 <path
                     d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
                 </path>
-            </svg></div>
+            </svg>
+        </div>
         <div class="results">
-            {{-- <a class="result" alt="Tensei shitara Slime Datta Ken: Coleus no Yume"
-                title="Tensei shitara Slime Datta Ken: Coleus no Yume"
-                href="/anime/tensei-shitara-slime-datta-ken-coleus-no-yume">
-                <div><img class="poster" alt="Tensei shitara Slime Datta Ken: Coleus no Yume" height="50"
-                        width="40" loading="lazy"
-                        src="{{ 'https://image.tmdb.org/t/p/w92/7DpYf5vE53kzHTpCfHHc1bmVxP0.jpg' }}"></div>
-                <div class="content">
-                    <p class="title">Tensei shitara Slime Datta Ken: Coleus no Yume</p>
-                    <p class="type">OVA</p>
-                </div>
-            </a> --}}
             <div class="empty"></div>
         </div>
     </div>
 </div>
-
 
 <script>
     document.getElementById('searchIcon').addEventListener('click', function() {

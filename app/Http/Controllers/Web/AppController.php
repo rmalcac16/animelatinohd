@@ -228,4 +228,32 @@ class AppController extends Controller
 		return false;
 	}
 
+	protected function manifest(){
+		return array(
+			'short_name' => config('app.name'),
+			'name' => config('app.name'),
+			'icons' => array(
+				array(
+					'src' => asset('images/logo-512x512.png'),
+					'type' => 'image/png',
+					'sizes' => '512x512'
+				),
+				array(
+					'src' => asset('images/logo-192x192.png'),
+					'type' => 'image/png',
+					'sizes' => '192x192'
+				),
+				array(
+					'src' => asset('images/logo-64x64.png'),
+					'type' => 'image/png',
+					'sizes' => '64x64'
+				),
+			),
+			'start_url' => '.',
+			'display' =>  'standalone',
+			'theme_color' => '#000000',
+			'background_color' => '#ffffff'
+		);
+	}
+
 }
