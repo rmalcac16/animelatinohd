@@ -1,6 +1,6 @@
 <div class="filters">
     <div class="filter">
-        <label>Tipo</label>
+        <label for="sel_type">Tipo</label>
         <select id="sel_type" onchange="handleChange('sel_type', 'type')">
             @php
                 $optionsType = [
@@ -23,7 +23,7 @@
     </div>
 
     <div class="filter">
-        <label>Estado</label>
+        <label for="sel_status">Estado</label>
         <select id="sel_status" onchange="handleChange('sel_status', 'status')">
             @php
                 $optionsStatus = [
@@ -44,7 +44,7 @@
     </div>
 
     <div class="filter">
-        <label>Género</label>
+        <label for="sel_genre">Género</label>
         <select id="sel_genre" onchange="handleChange('sel_genre', 'genre')">
             <option value="">Todos</option>
             @foreach ($genres as $genre)
@@ -58,7 +58,7 @@
     </div>
 
     <div class="filter">
-        <label>Año</label>
+        <label for="sel_year">Año</label>
         <select id="sel_year" onchange="handleChange('sel_year', 'anio')">
             @php
                 $startYear = 1980;
@@ -104,6 +104,7 @@
             url.searchParams.delete("anio");
             url.searchParams.delete("page");
             url.searchParams.delete("genre");
+            url.searchParams.delete("q");
 
             window.location.href = url.toString();
         }
