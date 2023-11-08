@@ -61,8 +61,9 @@ class Episode extends Model
             ->where('animes.slug', $slug_anime)
             ->where('episodes.number', $number)
             ->with(['players' => function ($query) {
-                $query->select('id','server_id','episode_id','languaje')->with(['server' => function ($query) {
-                    $query->select('id','title');
+                $query->select('players.id','players.server_id','players.episode_id','players.languaje')->join('servers','servers.id','players.server_id')->orderBy('servers.position', 'asc')
+                ->with(['server' => function ($query) {
+                    $query->select('id','title','position')->orderBy('position', 'asc');
                 }]);
             }])
             ->first();
@@ -92,7 +93,6 @@ class Episode extends Model
         }else {
             $episode->dataPlayers = collect($episode->players)->groupBy('languaje');
         }
-
 
         return $episode;
     }

@@ -24,6 +24,11 @@
     <div class="contenedor">
         <div class="containerEpisode">
 
+            @if ($episode->dataPlayers->has(1))
+                <div class="msg">
+                    <span>Este capítulo está disponible en <b>Español Latino</b></span>
+                </div>
+            @endif
             @if ($episode->dataPlayers)
                 <div class="videoPlayer">
                     <div class="options">
