@@ -32,5 +32,10 @@ function limitString($string, $quantity) : String {
     return Str::limit($string, $quantity, '...');
 }
 
+function getDomain($url) {
+    $parsedUrl = parse_url($url);
+    return $parsedUrl['scheme']. "://" . $parsedUrl['host']. '/'  ?? '';
+}
+
 
 ?>

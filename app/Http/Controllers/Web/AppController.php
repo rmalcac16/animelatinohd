@@ -199,7 +199,10 @@ class AppController extends Controller
 				if($parse['host'] != parse_url(config('app.url'))['host'])
 					abort(403, "No tienes acceso a esta zona");
 				$player = $this->player->web_obtenerReproductor($request->id);
-				return redirect($player->code);
+				if($player->server->embed)
+					return redirect(str_replace(getDomain($player->code), $player->server->embed, $player->code));
+				else 
+					return redirect($player->code);
 			} else {
 				abort(403, "Token CSRF inválido.");
 			}
