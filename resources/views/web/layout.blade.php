@@ -30,6 +30,11 @@
 
     @yield('aditionals')
 
+    <script src="{{ asset('web/js/popAds.js') }}"></script>
+    <script id="chatBroEmbedCode" src="{{ asset('web/js/chat.js') }}"></script>
+    {{-- <script src="{{ asset('web/js/disableClick.js') }}"></script> --}}
+    <script async src="https://arc.io/widget.min.js#R2yjvhvV"></script>
+
 </body>
 
 </html>
