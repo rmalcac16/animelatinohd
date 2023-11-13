@@ -1641,6 +1641,18 @@ img {
     color: #eabe3f;
 }
 
+.list-animes .animeCard .cover .last-latEpi {
+    position: absolute;
+    bottom: 0.75em;
+    left: 0.3875em;
+    font-weight: 700;
+    font-size: 0.8rem;
+    background-color: var(--primary-color);
+    min-width: 5em;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.6rem;
+}
+
 .list-animes .animeCard .cover .image {
     position: relative;
     overflow: hidden;

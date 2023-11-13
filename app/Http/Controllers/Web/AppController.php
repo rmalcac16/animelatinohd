@@ -11,12 +11,11 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 use Illuminate\Support\Facades\Crypt;
 
+use DB;
 use App\Models\Anime;
 use App\Models\Genre;
 use App\Models\Episode;
 use App\Models\Player;
-//use App\Models\Server;
-//use App\Models\User;
 
 class AppController extends Controller
 {
@@ -155,11 +154,16 @@ class AppController extends Controller
 
 	public function getEpisode(Request $request, string $slug, int $number): \Illuminate\View\View
 	{
-		$episode = $this->episode->getEpisode($slug, $number);
-		$data = [
-			'episode' => $episode
-		];
-		return view('web.episode')->with($data);
+		try {
+			$episode = $this->episode->getEpisode($slug, $number);
+			$data = [
+				'episode' => $episode
+			];
+			DB::unprepared('update episodes set views = views+1 where id = '.$episode->id.'');
+			return view('web.episode')->with($data);
+		} catch (Exception $e) {
+			return abort(404);
+		}
     }
 
 
@@ -170,16 +174,14 @@ class AppController extends Controller
 			if(!$anime)
 				throw new Exception("Anime no encontrado", 1);
 			$episodes = $this->episode->web_obtenerEpisodiosAnime($anime->id);
-	
 			$data = [
 				'anime' => $anime,
 				'episodes' => $episodes
 			];
-		
+			DB::unprepared('update animes set views = views+1 where id = '.$anime->id.'');
 			return view('web.anime')->with($data);
-
 		} catch (Exception $e) {
-			return $e;
+			return abort(404);
 		}
     }
 

@@ -48,7 +48,6 @@
                     </div>
 
                     <div class="video">
-                        <div id="message" class="message">El video se está cargando...</div>
                         <iframe id="videoIframe" frameborder="0" allowfullscreen data-token="{{ csrf_token() }}"></iframe>
                     </div>
                 </div>
@@ -141,12 +140,7 @@
         function updateIframe(playerId) {
             const url = videoNewUrl.replace(':id', playerId);
             videoIframe.src = url;
-            message.style.display = 'flex';
         }
-
-        videoIframe.addEventListener('load', () => {
-            message.style.display = 'none';
-        });
     </script>
 
 @endsection

@@ -6,6 +6,7 @@
                     layout="responsive" loading="lazy">
             </div>
         </a>
+
         <span class="score">
             @if ($anime->totalviews)
                 <span>
@@ -23,7 +24,13 @@
             @if ($anime->vote_average)
                 <b>★</b>
             @endif
+
         </span>
+        @if ($anime->number)
+            <span class="last-latEpi">
+                {{ $anime->number . ' Episodios' }}
+            </span>
+        @endif
     </div>
     <div class="info">
         <h3>
