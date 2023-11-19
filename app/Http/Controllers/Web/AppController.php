@@ -213,6 +213,22 @@ class AppController extends Controller
 		}
     }
 
+	protected function searchAjax(Request $request)
+	{
+		try {
+			$referer = $_SERVER['HTTP_REFERER'] ?? null;
+			if(!$referer)
+				abort(403, "No tienes acceso a esta zona");
+			$parse = parse_url($referer);
+			if($parse['host'] != parse_url(config('app.url'))['host'])
+				abort(403, "No tienes acceso a esta zona");
+			return $this->anime->web_getAnimesByName($request);
+			
+		} catch (HttpResponseException $e) {
+			abort($e->getResponse()->getStatusCode(), $e->getResponse()->getContent());
+		}
+    }
+
 	protected function manifest(){
 		return array(
 			'short_name' => config('app.name'),

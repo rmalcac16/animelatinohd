@@ -67,6 +67,16 @@ class Anime extends Model
 		return $data;
     }
 
+	public function web_getAnimesByName($request)
+    {
+        return $this->select('name', 'slug', 'poster', 'type')
+			->orderBy('aired','desc')
+			->where('name','LIKE',"%{$request->q}%")
+			->orwhere('name_alternative','LIKE',"%{$request->q}%")
+			->limit(10)
+			->get();
+    }
+
 	public function web_animesLatinoFiltro($request)
     {
 		$data = $this

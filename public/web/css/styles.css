@@ -1575,6 +1575,10 @@ img {
     overflow: hidden;
 }
 
+.searchContainer .search .results .result .content p {
+    margin: 0;
+}
+
 .searchContainer .search .results .result .content .title {
     display: list-item;
     list-style: none;

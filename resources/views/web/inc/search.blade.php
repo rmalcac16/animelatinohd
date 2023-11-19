@@ -17,7 +17,7 @@
             </svg>
         </div>
         <div class="results">
-            <div class="empty"></div>
+            <div class="empty">Escribe al menos 3 caracteres</div>
         </div>
     </div>
 </div>
@@ -36,4 +36,57 @@
         var searchContainer = document.getElementById('search');
         searchContainer.style.display = 'none';
     });
+
+    searchInput = document.getElementById('searchInput');
+
+    searchInput.oninput = function() {
+        buscarAnime(this.value);
+    };
+
+    function buscarAnime(query) {
+
+        var resultsContainer = document.querySelector('.results');
+
+        if (query.length < 3) {
+            resultsContainer.innerHTML = '';
+            resultsContainer.innerHTML = '<div class="empty">Escribe al menos 3 caracteres</div>';
+            return;
+        }
+        var formData = new FormData();
+        formData.append('q', query);
+        fetch("{{ route('web.searchAjax') }}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}', // CSRF token de Laravel
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultsContainer = document.querySelector('.results');
+                resultsContainer.innerHTML = '';
+
+                data.forEach(item => {
+                    var routeLink = "{{ route('web.anime', [':slug']) }}";
+                    routeLink = routeLink.replace(':slug', item.slug);
+                    var resultHTML = `<a class="result" alt="${item.name}" title="${item.name}" href="${routeLink}">
+                            <div><img class="poster" alt="${item.name}" height="50" width="40" loading="lazy"
+                                src="https://image.tmdb.org/t/p/w92${item.poster}"></div>
+                            <div class="content">
+                                <p class="title">${item.name}</p>
+                                <p class="type">${item.type}</p>
+                            </div>
+                        </a>
+                    `;
+                    resultsContainer.innerHTML += resultHTML;
+                });
+
+                if (data.length == 0) {
+                    resultsContainer.innerHTML = '<div class="empty">No se encontraron resultados</div>';
+                } else if (data.length > 0) {
+                    resultsContainer.innerHTML += `<div class="empty">Resultados para ${query}</div>`;
+                }
+            });
+    }
 </script>
